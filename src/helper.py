@@ -5,3 +5,8 @@ def contains_elem(elem_list, x):
 		if elem in x:
 			return True
 	return False
+
+
+def check_and_append(lst, elem):
+	if elem:
+		lst.append(elem)
