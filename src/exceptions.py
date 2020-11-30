@@ -21,3 +21,6 @@ def handle_invalid_arguments_exception(line_num):
 def handle_bracket_mismatch_exception(line_num):
 	print('bracket mismatch on line ', line_num)
 	exit()
+
+def handle_invalid_given_command_exception(line_num):
+	print('given command inside assumption block on line ', line_num)

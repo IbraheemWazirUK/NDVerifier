@@ -38,8 +38,8 @@ def parse(line, line_num):
 			op_stack.append(word)
 		else:
 			exp_stack.append(Var([word]))
-
-	return (exp_stack[0], command)
+	if exp_stack:
+		return (exp_stack[0], command)
 
 def add_exp_to_stack(op_stack, exp_stack, line_num):
 	op = op_stack.pop()
@@ -64,7 +64,12 @@ def add_exp_to_stack(op_stack, exp_stack, line_num):
 		fst = exp_stack.pop()
 		exp_stack.append(operator_mapper[op](fst))
 
-(l, c) = parse('(p and q)', 1)
-print(l)
+def parse_lines(lines):
+	res = []
+	for i in range(len(lines)):
+		temp = parse(lines[i], i+1)
+		if temp:
+			res.append(temp)
+	return res
 
 
