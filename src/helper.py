@@ -10,3 +10,4 @@ def contains_elem(elem_list, x):
 def check_and_append(lst, elem):
 	if elem:
 		lst.append(elem)
+

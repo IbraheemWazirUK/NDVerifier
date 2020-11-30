@@ -1,4 +1,4 @@
-from char_lists import *
+from lists import *
 from helper import contains_elem, check_and_append
 from exceptions import *
 def get_words(line, line_num):
