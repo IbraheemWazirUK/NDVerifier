@@ -1,5 +1,7 @@
 from exceptions import handle_invalid_given_command_exception
 from expression import *
+
+
 def verify(parsed_lines):
 	env = [[]] # a list of the lists of true expressions at different levels
 	level = 0
@@ -11,18 +13,14 @@ def verify(parsed_lines):
 				handle_invalid_given_command_exception(i+1)
 			env[level].append(exp)
 			cur_true_exps.append(exp)
-			for e in exp.eliminate():
-				env[level].append(e)
-				cur_true_exps.append(e)
+			exp.eliminate(env, cur_true_exps)
 
 		elif com == 'ass':
 			env.append([])
 			level+=1
 			env[level].append(exp)
 			cur_true_exps.append(exp)
-			for e in exp.eliminate():
-				env[level].append(e)
-				cur_true_exps.append(e)
+			exp.eliminate(env, cur_true_exps)
 
 		else:
 			if not ((exp in cur_true_exps) or exp.introduce(env, cur_true_exps) or check(exp, env, cur_true_exps)):

@@ -11,3 +11,6 @@ def check_and_append(lst, elem):
 	if elem:
 		lst.append(elem)
 
+
+def find_mutual(l1, l2):
+	return list(set(l1) & set(l2))
