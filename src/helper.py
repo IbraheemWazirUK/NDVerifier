@@ -14,3 +14,8 @@ def check_and_append(lst, elem):
 
 def find_mutual(l1, l2):
 	return list(set(l1) & set(l2))
+
+def delete_mutual(l1, l2):
+	union = find_mutual(l1, l2)
+	for elem in union:
+		l2.remove(elem)
