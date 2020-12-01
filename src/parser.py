@@ -30,6 +30,8 @@ def parse(line, line_num):
 			if command:
 				handle_double_command_exception(line_num)
 			command = word
+		elif word in tf_list:
+			exp_stack.append(operator_mapper[word]())
 		elif word in precedence_map:
 			if op_stack:
 				op = op_stack[-1]

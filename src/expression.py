@@ -52,7 +52,7 @@ class Or(Exp):
 
 class Not(Exp):
 	def eliminate(self, env, cur_true_exps):
-		
+
 	def __str__(self):
 		return '(' + 'not ' +  self.operands[0].__str__() + ')'
 
@@ -107,6 +107,14 @@ class Iff(Exp):
 class Var(Exp):
 	def __str__(self):
 		return '(' + self.operands[0].__str__() + ')'
+
+class T():
+	def __str__(self):
+		return 'true'
+
+class F():
+	def __str__(self):
+		return 'false'
 
 
 
