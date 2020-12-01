@@ -1,11 +1,12 @@
 from .exceptions import handle_invalid_given_command_exception
 from .expression import *
-
+from .helper import print_list
 
 def verify(parsed_lines):
 	env = [[]] # a list of the lists of true expressions at different levels
-	cur_true_exps = [] # a list of all the 
+	cur_true_exps = [] # a list of all the true expressions 
 	for i in range(len(parsed_lines)):
+		print_list(cur_true_exps)
 		(exp, com) = parsed_lines[i]
 		if com == 'given':
 			if len(env) > 1:

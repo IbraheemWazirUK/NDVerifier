@@ -20,3 +20,9 @@ def delete_mutual(l1, l2):
 	for elem in union:
 		l2.remove(elem)
 
+# for testing purposes
+def print_list(l):
+	res = []
+	for i in l:
+		res.append(i.__str__())
+	print(res)

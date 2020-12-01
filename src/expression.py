@@ -4,7 +4,7 @@ class Exp():
 	def eliminate(self, e, c):
 		pass
 	def introduction(self, e, c):
-		return True
+		return False
 	def __init__(self, operands):
 		self.operands = operands
 	def implications(self, cur_true_exps):

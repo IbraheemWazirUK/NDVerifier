@@ -17,7 +17,7 @@ def parse(line, line_num):
 					handle_bracket_mismatch_exception(line_num)
 				add_exp_to_stack(op_stack, exp_stack, line_num)
 			break
-		if word == '(':
+		elif word == '(':
 			op_stack.append('(')
 		elif word == ')':
 			if not op_stack:
