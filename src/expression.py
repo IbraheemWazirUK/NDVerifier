@@ -1,9 +1,9 @@
-from helper import find_mutual, delete_mutual
+from .helper import find_mutual, delete_mutual
 
 class Exp():
-	def eliminate(self):
+	def eliminate(self, e, c):
 		pass
-	def introduction():
+	def introduction(self, e, c):
 		return True
 	def __init__(self, operands):
 		self.operands = operands

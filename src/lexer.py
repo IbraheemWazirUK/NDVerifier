@@ -1,7 +1,8 @@
-from lists import *
-from helper import contains_elem, check_and_append
-from exceptions import *
+from .lists import *
+from .helper import contains_elem, check_and_append
+from .exceptions import *
 def get_words(line, line_num):
+	line = [c for c in line if (not c in special_chars)]
 	res = []
 	cur_str = ''
 	eol_flag = False

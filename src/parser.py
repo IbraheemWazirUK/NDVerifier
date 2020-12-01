@@ -1,9 +1,9 @@
-from lexer import get_words
-from lists import * 
-from exceptions import \
+from .lexer import get_words
+from .lists import * 
+from .exceptions import \
 handle_double_command_exception, handle_bracket_mismatch_exception, \
 handle_invalid_arguments_exception 
-from expression import Var
+from .expression import Var
 # returns a tuple containing a list of expressions and a line command if it exists
 def parse(line, line_num):
 	words = get_words(line, line_num)
