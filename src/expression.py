@@ -8,12 +8,12 @@ class Exp():
 	def __init__(self, operands):
 		self.operands = operands
 	def implications(self, cur_true_exps):
-	res = []
-	for e in cur_true_exps:
-		if type(e) is Implies:
-			if e.operands[0] == self:
-				res.append(e.operands[1])
-	return res
+		res = []
+		for e in cur_true_exps:
+			if type(e) is Implies:
+				if e.operands[0] == self:
+					res.append(e.operands[1])
+		return res
 	def __eq__(self, other):
 		return (self.operands == other.operands) and (type(self) == type(other)) 
 
@@ -52,7 +52,22 @@ class Or(Exp):
 
 class Not(Exp):
 	def eliminate(self, env, cur_true_exps):
+		if type(self.operands[0]) is Not:
+			cur_true_exps.append(self.operands[0].operands[0])
+			env[-1].append(self.operands[0].operands[0])
+		if self.operands[0] in cur_true_exps:
+			cur_true_exps.append(F())
+			env[-1].append(F())
 
+	def introduction(self,  env, cur_true_exps):
+		if len(env) > 1 and env[-1] and self.operands[0] == env[-1][0]:
+			if F() in env[-1]:
+				delete_mutual(env[-1], cur_true_exps)
+				env.pop()
+				env[-1].append(self)
+				cur_true_exps.append(self)
+				return True
+		return False
 	def __str__(self):
 		return '(' + 'not ' +  self.operands[0].__str__() + ')'
 
@@ -75,7 +90,7 @@ class Implies(Exp):
 		return '(' + self.operands[0].__str__() + ' -> ' +  self.operands[1].__str__() + ')'
 
 class Iff(Exp):
-		def eliminate(self, env, cur_true_exps):
+	def eliminate(self, env, cur_true_exps):
 		if self.operands[0] in cur_true_exps:
 			env[-1].append(self.operands[1])
 			cur_true_exps.append(self.operands[1])
@@ -108,13 +123,24 @@ class Var(Exp):
 	def __str__(self):
 		return '(' + self.operands[0].__str__() + ')'
 
-class T():
+class T(Exp):
+	def __init__(self):
+		pass
 	def __str__(self):
 		return 'true'
 
-class F():
+	def __eq__(self, other):
+		return type(self) == type(other)
+
+
+class F(Exp):
+	def __init__(self):
+		pass
 	def __str__(self):
 		return 'false'
+
+	def __eq__(self, other):
+		return type(self) == type(other)
 
 
 
