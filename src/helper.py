@@ -19,3 +19,4 @@ def delete_mutual(l1, l2):
 	union = find_mutual(l1, l2)
 	for elem in union:
 		l2.remove(elem)
+

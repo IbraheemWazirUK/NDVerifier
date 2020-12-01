@@ -4,7 +4,7 @@ class Exp():
 	def eliminate(self):
 		pass
 	def introduction():
-		pass
+		return True
 	def __init__(self, operands):
 		self.operands = operands
 	def implications(self, cur_true_exps):
@@ -121,7 +121,7 @@ class Iff(Exp):
 
 class Var(Exp):
 	def __str__(self):
-		return '(' + self.operands[0].__str__() + ')'
+		return self.operands[0].__str__() 
 
 class T(Exp):
 	def __init__(self):
@@ -134,6 +134,12 @@ class T(Exp):
 
 
 class F(Exp):
+	def introduction(self, env, cur_true_exps):
+		for exp in find_nots:
+			if exp in cur_true_exps:
+				env[-1].append(self)
+				cur_true_exps.append(self)
+				return True
 	def __init__(self):
 		pass
 	def __str__(self):
@@ -143,6 +149,21 @@ class F(Exp):
 		return type(self) == type(other)
 
 
+def find_nots(cur_true_exps):
+	res = []
+	for exp in cur_true_exps:
+		if type(exp) is Not:
+			res.append(exp.operands[0])
+
+	return res
+
+def check_false(exp, env, cur_true_exps):
+	if F() in cur_true_exps:
+		env[-1].append(exp)
+		cur_true_exps.append(cur_true_exps)
+		return True
+
+	return False
 
 
 		
