@@ -39,7 +39,8 @@ def parse(line, line_num):
 		elif word in precedence_map:
 			if op_stack:
 				op = op_stack[-1]
-				while (op != '(' and precedence_map[op] < precedence_map[word] ):
+				while (op_stack and op != '(' and precedence_map[op] < precedence_map[word] ):
+					op = op_stack[-1];
 					add_exp_to_stack(op_stack, exp_stack, line_num)
 			op_stack.append(word)
 		else:
@@ -52,11 +53,13 @@ def parse(line, line_num):
 		return (None, None)
 
 def add_exp_to_stack(op_stack, exp_stack, line_num):
-	op = op_stack.pop()
+	op = op_stack[-1]
+	if op != '(':
+		op = op_stack.pop()
 	if op == ')':
 		if not op_stack:
 			handle_bracket_mismatch_exception(line_num)
-		while (op_stack[-1]() != ')'):
+		while (op_stack[-1] != ')'):
 			add_exp_to_stack(exp_stack, op_stack, line_num)
 			if not op_stack:
 				handle_bracket_mismatch_exception(line_num)

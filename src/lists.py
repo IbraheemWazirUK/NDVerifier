@@ -5,6 +5,7 @@ if_str_list = ['->', '<->']
 if_char_list = ['-', '>', '<']
 invalid_chars = ['.', ',']
 bin_op_list = ['and', 'or', '->', '<->']
+un_op_list = ['not']
 eol_char = ';'
 command_list = ['given', 'ass']
 tf_list = ['true', 'false']

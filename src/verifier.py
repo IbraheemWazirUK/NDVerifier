@@ -7,20 +7,21 @@ def verify(parsed_lines):
 	cur_true_exps = [] # a list of all the true expressions 
 	ors_list = [] 
 	for i in range(len(parsed_lines)):
-		print_list(cur_true_exps)
+		#print(i)
+		#print_list(cur_true_exps)
 		(exp, com) = parsed_lines[i]
 		if not exp:
 			continue
 		if com == 'given':
 			if len(env) > 1:
 				handle_invalid_given_command_exception(i+1)
-			append_no_dupl(exp, env[-1])
+			append_to_env(exp, env, cur_true_exps)
 			append_no_dupl(exp, cur_true_exps)
 			exp.eliminate(env, cur_true_exps)
 
 		elif com == 'ass':
 			env.append([])
-			append_no_dupl(exp, env[-1])
+			append_to_env(exp, env, cur_true_exps)
 			append_no_dupl(exp, cur_true_exps)
 			exp.eliminate(env, cur_true_exps)
 
