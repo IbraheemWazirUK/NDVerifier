@@ -146,21 +146,7 @@ class Iff(Exp):
 			append_to_env(self.fst, env, cur_true_exps)
 			append_no_dupl(self.fst, cur_true_exps)	
 	def introduction(self, env, cur_true_exps):
-		if len(env) > 1 and env[-1] and self.fst == env[-1][0]:
-			if self.snd in env[-1]:
-				delete_mutual(env[-1], cur_true_exps)
-				env.pop()
-				append_to_env(self, env, cur_true_exps)
-				append_no_dupl(self, cur_true_exps)
-				return True
-		elif len(env) > 1 and env[-1] and self.snd == env[-1][0]:
-			if self.fst in env[-1]:
-				delete_mutual(env[-1], cur_true_exps)
-				env.pop()
-				append_to_env(self, env, cur_true_exps)
-				append_no_dupl(self, cur_true_exps)
-				return True		
-		return False;
+		return Implies(self.fst, self.snd) in cur_true_exps and Implies(self.snd, self.fst) in cur_true_exps;
 
 	def __str__(self):
 		return '(' + self.fst.__str__() + ' <-> ' +  self.snd.__str__() + ')'
