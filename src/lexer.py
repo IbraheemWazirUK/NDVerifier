@@ -32,7 +32,7 @@ def get_words(line, line_num):
 		cur_str += char
 	check_for_invalid_chars(cur_str, line_num)
 	check_and_append(res, cur_str)
-	if res[-1] != eol_char:
+	if res and res[-1] != eol_char:
 		handle_missing_eol_exception(line_num)
 	return res
 

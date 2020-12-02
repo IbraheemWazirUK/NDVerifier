@@ -13,7 +13,7 @@ def check_and_append(lst, elem):
 
 
 def find_mutual(l1, l2):
-	return list(set(l1) & set(l2))
+	return [elem for elem in l1 if elem in l2]
 
 def delete_mutual(l1, l2):
 	union = find_mutual(l1, l2)
@@ -26,3 +26,6 @@ def print_list(l):
 	for i in l:
 		res.append(i.__str__())
 	print(res)
+
+def append_no_dupl(elem, l1):
+	l1.append(elem) if elem not in l1 else None
