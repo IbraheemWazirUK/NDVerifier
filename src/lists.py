@@ -12,6 +12,6 @@ tf_list = ['true', 'false']
 special_chars = ['\n', '\\', '\r', '\t', '\'']
 precedence_map = \
 {'not' : 1, 'and' : 2, 'or' : 3, '->' : 4, '<->' : 5, ')' : 6}
-operator_mapper = {'and' : (lambda a, b : And([a, b])), 'or': (lambda a, b : Or([a, b])), \
-'->' : (lambda a, b : Implies([a, b])), '<->' : (lambda a, b : Iff([a, b])), \
-'not' : (lambda a : Not([a])), 'true' : (lambda : T()), 'false': (lambda: F())}
+operator_mapper = {'and' : (lambda a, b : And(a, b)), 'or': (lambda a, b : Or(a, b)), \
+'->' : (lambda a, b : Implies(a, b)), '<->' : (lambda a, b : Iff(a, b)), \
+'not' : (lambda a : Not(a)), 'true' : (lambda : T()), 'false': (lambda: F())}

@@ -1,10 +1,11 @@
 from .lexer import get_words
-from .lists import * 
+from .lists import *
 from .exceptions import \
 handle_double_command_exception, handle_bracket_mismatch_exception, \
 handle_invalid_arguments_exception 
 from .expression import Var
 from .helper import print_list
+
 # returns a tuple containing a list of expressions and a line command if it exists
 def parse(line, line_num):
 	words = get_words(line, line_num)
@@ -12,8 +13,6 @@ def parse(line, line_num):
 	exp_stack = []
 	command = ''
 	for word in words:
-		#print_list(op_stack)
-		#print_list(exp_stack)
 		if word == eol_char:
 			while (op_stack):
 				if op_stack[-1] == '(':
@@ -44,9 +43,8 @@ def parse(line, line_num):
 					add_exp_to_stack(op_stack, exp_stack, line_num)
 			op_stack.append(word)
 		else:
-			exp_stack.append(Var([word]))
+			exp_stack.append(Var(word))
 	if exp_stack:
-		# print_list(exp_stack)
 		return (exp_stack[0], command)
 
 	else: 

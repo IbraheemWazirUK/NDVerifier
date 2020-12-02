@@ -5,10 +5,7 @@ from .helper import print_list, append_no_dupl
 def verify(parsed_lines):
 	env = [[]] # a list of the lists of true expressions at different levels
 	cur_true_exps = [] # a list of all the true expressions 
-	ors_list = [] 
 	for i in range(len(parsed_lines)):
-		#print(i)
-		#print_list(cur_true_exps)
 		(exp, com) = parsed_lines[i]
 		if not exp:
 			continue
@@ -18,13 +15,11 @@ def verify(parsed_lines):
 			append_to_env(exp, env, cur_true_exps)
 			append_no_dupl(exp, cur_true_exps)
 			exp.eliminate(env, cur_true_exps)
-
 		elif com == 'ass':
 			env.append([])
 			append_to_env(exp, env, cur_true_exps)
 			append_no_dupl(exp, cur_true_exps)
 			exp.eliminate(env, cur_true_exps)
-
 		else:
 			if (exp in cur_true_exps) or exp.introduction(env, cur_true_exps) or final_check(exp, env, cur_true_exps):
 				exp.eliminate(env, cur_true_exps)
