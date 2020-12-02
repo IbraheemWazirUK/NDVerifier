@@ -48,6 +48,9 @@ def parse(line, line_num):
 		# print_list(exp_stack)
 		return (exp_stack[0], command)
 
+	else: 
+		return (None, None)
+
 def add_exp_to_stack(op_stack, exp_stack, line_num):
 	op = op_stack.pop()
 	if op == ')':
@@ -75,8 +78,7 @@ def parse_lines(lines):
 	res = []
 	for i in range(len(lines)):
 		temp = parse(lines[i], i+1)
-		if temp:
-			res.append(temp)
+		res.append(temp)
 	return res
 
 

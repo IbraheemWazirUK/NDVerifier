@@ -5,9 +5,12 @@ from .helper import print_list, append_no_dupl
 def verify(parsed_lines):
 	env = [[]] # a list of the lists of true expressions at different levels
 	cur_true_exps = [] # a list of all the true expressions 
+	ors_list = [] 
 	for i in range(len(parsed_lines)):
 		print_list(cur_true_exps)
 		(exp, com) = parsed_lines[i]
+		if not exp:
+			continue
 		if com == 'given':
 			if len(env) > 1:
 				handle_invalid_given_command_exception(i+1)

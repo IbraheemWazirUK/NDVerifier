@@ -76,7 +76,10 @@ class Implies(Exp):
 	def eliminate(self, env, cur_true_exps):
 		if self.operands[0] in cur_true_exps:
 			append_no_dupl(self.operands[1], env[-1])
-			append_no_dupl(self.operands[0], cur_true_exps)
+			append_no_dupl(self.operands[1], cur_true_exps)
+		if len(find_mutual(find_ifs(self.operands[1], cur_true_exps), find_ors(self.operands[0], cur_true_exps))) > 0:
+			append_no_dupl(self.operands[1], env[-1])
+			append_no_dupl(self.operands[1], cur_true_exps)	
 	def introduction(self, env, cur_true_exps):
 		if len(env) > 1 and env[-1] and self.operands[0] == env[-1][0]:
 			if self.operands[1] in env[-1]:
@@ -165,25 +168,40 @@ def check_false(exp, env, cur_true_exps):
 
 	return False
 
-def check_ifs(exp, env, cur_true_exps):
+def find_ifs(exp, cur_true_exps):
+	res = []
 	for e in cur_true_exps:
 		if type(e) is Implies:
 			if e.operands[1] == exp:
-				if e.operands[0] in cur_true_exps:
-					append_no_dupl(exp, env[-1])
-					append_no_dupl(exp, cur_true_exps)
-					return True
+				append_no_dupl(e.operands[0], res)
 
+		if type(e) is Iff:
+			if exp == e.operands[0]:
+				append_no_dupl(e.operands[1])
+			elif exp == e.operands[1]:
+				append_no_dupl(e.operands[0]) 
+	return res
 
-		elif type(e) is Iff:
-			if exp in e.operands:
-				if (e.operands[0] in cur_true_exps) or (e.operands[1] in cur_true_exps):
-					append_no_dupl(exp, env[-1])
-					append_no_dupl(exp, cur_true_exps)
-					return True
+def find_ors(exp, cur_true_exps):
+	res = []
+	for e in cur_true_exps:
+		if type(e) is Or:
+			if e.operands[0] == exp:
+				append_no_dupl(e.operands[0], res)
+			elif e.operands[1] == exp:
+				append_no_dupl(e.operands[0], res)
+	return res
+
+def check_ifs(exp, env, cur_true_exps):
+	for e in find_ifs(exp, cur_true_exps):
+		if e in cur_true_exps:
+			append_no_dupl(exp, env[-1])
+			append_no_dupl(exp, cur_true_exps)
+			return True
 
 
 	return False
+
 
 
 def final_check(exp, env, cur_true_exps):
